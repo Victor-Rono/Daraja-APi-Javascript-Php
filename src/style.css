@@ -1,0 +1,58 @@
+:root {
+    --primary: #3C79F5;
+    --primary-light: #39B5E0;
+    --secondary: #EB455F;
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(30, 30, 30);
+    color: white;
+}
+
+.header {
+    margin: 10px;
+}
+
+.form-group {
+    width: auto;
+}
+
+.form-control {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    max-width: 300px;
+
+}
+
+input {
+    height: 30px;
+    font-size: medium;
+    border: none;
+    background-color: #3d3d3d;
+}
+
+button {
+    height: 30px;
+    border: none;
+    background-color: var(--primary);
+}
+
+/* UTILITY CLASSES  */
+.centered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.p-10 {
+    padding: 10px;
+}
+
+.m-10 {
+    margin: 10px;
+}
