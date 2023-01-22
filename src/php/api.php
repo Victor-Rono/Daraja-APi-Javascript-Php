@@ -4,27 +4,13 @@ require('./connect.php');
 
 // All the data that was posted during the API call
 $data = json_decode(file_get_contents("php://input"), true);
-
 $request = $con->real_escape_string($data['request']);
 
-if ($request == "activation") {
+if ($request == "Daraja Payment") {
     $phone = $con->real_escape_string($data['phone']);
-    $fee  = $con->real_escape_string($data['amount']);
+    $amount  = $con->real_escape_string($data['amount']);
     $paybill  = $con->real_escape_string($data['paybill']);
     $email = $con->real_escape_string($data['email']);
-
-    $attempts = $con->query("SELECT * FROM activation_attempts WHERE `email` = '{$email}' && `phone` = '{$phone}'");
-    $attemptCount = $attempts->num_rows;
-
-    if ($attemptCount > 0) {
-        //if they have attempted activation before
-        $row = $attempts->fetch_assoc();
-        $totalAttempts = $row['attempts'];
-        $newAttempt = $totalAttempts + 1;
-        $updateAttempts = $con->query("UPDATE activation_attempts SET `attempts` = '{$newAttempt}' WHERE `phone` = '{$phone}'");
-    } else {
-        $firstAttempt = $con->query("INSERT INTO activation_attempts(`email`,`phone`) VALUES('{$email}','{$phone}')");
-    }
 
     //daraja
     $consumerKey = '9xVvsUCX3scvjJ0pmU8esbeAgoi7ELvd'; //Fill with your app Consumer Key
@@ -32,6 +18,7 @@ if ($request == "activation") {
 
     $headers = ['Content-Type:application/json; charset=utf8'];
 
+    // safaricom might change this url. If so, get the valid one from daraja api docs
     $access_token_url = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
 
     $curl = curl_init($access_token_url);
@@ -48,14 +35,14 @@ if ($request == "activation") {
 
 
 
-
+    // safaricom might change this url. If so, get the valid one from daraja api docs
     $initiate_url = 'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
 
     $BusinessShortCode = "$paybill";
     $Timestamp = date('YmdHis');
     $PartyA = "$phone";
-    $AccountReference = "FNFCOM MEMBERSHIP FEE";
-    $Amount = "$fee";
+    $AccountReference = "Payment for some service that you offer.";
+    $Amount = "$amount";
     $CallBackURL = 'https://fnfcom.com/daraja/validation_url.php';
     $passkey = 'b0d48bf7c866ab97f6c2d92433cd5d4dfa62b63c406b8b2b7c75df6cfd03fa33';
     $Password = base64_encode($BusinessShortCode . $passkey . $Timestamp);
@@ -72,7 +59,7 @@ if ($request == "activation") {
         'Password' => $Password,
         'Timestamp' => $Timestamp,
         'TransactionType' => 'CustomerPayBillOnline',
-        'Amount' => $fee,
+        'Amount' => $amount,
         'PartyA' => $phone,
         'PartyB' => $BusinessShortCode,
         'PhoneNumber' => $PartyA,
@@ -86,9 +73,6 @@ if ($request == "activation") {
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);
-
     $curl_response = curl_exec($curl);
-    print_r($curl_response);
-
     echo $curl_response;
 }
