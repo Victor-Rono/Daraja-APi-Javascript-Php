@@ -6,9 +6,8 @@ async function submit() {
     const phone = document.getElementById('phone').value;
     const amount = document.getElementById('amount').value;
 
-    const payBill = 4021575;
+    const payBill = 123456;
     const request = 'Daraja Payment';
-
 
     // make an axios request to the API for payment:
     const response = await axios.post(url, {
