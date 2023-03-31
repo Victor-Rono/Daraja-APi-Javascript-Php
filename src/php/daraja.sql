@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `pesa`
 --
 
-CREATE TABLE `pesa` (
+CREATE TABLE `daraja-api-records` (
   `id` int(11) NOT NULL,
   `Phone` varchar(255) DEFAULT NULL,
   `Phone2` varchar(255) DEFAULT NULL,
