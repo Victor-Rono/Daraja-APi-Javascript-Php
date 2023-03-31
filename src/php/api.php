@@ -2,15 +2,35 @@
 // connection to database
 require('./connect.php');
 
-// All the data that was posted during the API call
+// All the data that was posted during the API call:
 $data = json_decode(file_get_contents("php://input"), true);
+
+// name of the request posted during API call:
 $request = $con->real_escape_string($data['request']);
 
 if ($request == "Daraja Payment") {
-    $phone = $con->real_escape_string($data['phone']);
+
+
+
+    $phoneNumber = $con->real_escape_string($data['phone']);
     $amount  = $con->real_escape_string($data['amount']);
-    $paybill  = $con->real_escape_string($data['paybill']);
+    $paybill  = $con->real_escape_string($data['payBill']);
     $email = $con->real_escape_string($data['email']);
+
+    // Default Message to display on stk menu if none is provided
+    $promptMessage = 'Payment for some service offered';
+
+    // Custom message to display on STK menu
+    $prompt = $con->real_escape_string($data['promptMessage']);
+
+    if ($prompt) {
+        $promptMessage = $prompt;
+    }
+
+    // convert the posted phone number to 254 format
+    $shortPhone = substr($phoneNumber, 1);
+    $phone = "254" . $shortPhone;
+
 
     //daraja
     $consumerKey = '9xVvsUCX3scvjJ0pmU8esbeAgoi7ELvd'; //Fill with your app Consumer Key
@@ -35,13 +55,14 @@ if ($request == "Daraja Payment") {
 
 
 
+
     // safaricom might change this url. If so, get the valid one from daraja api docs
     $initiate_url = 'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
 
     $BusinessShortCode = "$paybill";
     $Timestamp = date('YmdHis');
     $PartyA = "$phone";
-    $AccountReference = "Payment for some service that you offer.";
+    $AccountReference = $promptMessage;
     $Amount = "$amount";
     $CallBackURL = 'https://fnfcom.com/daraja/validation_url.php';
     $passkey = 'b0d48bf7c866ab97f6c2d92433cd5d4dfa62b63c406b8b2b7c75df6cfd03fa33';
