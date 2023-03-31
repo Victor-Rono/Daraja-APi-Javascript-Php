@@ -8,10 +8,14 @@ $data = json_decode(file_get_contents("php://input"), true);
 // name of the request posted during API call:
 $request = $con->real_escape_string($data['request']);
 
+//daraja
+$consumerKey = '9xVvsUCX3scvjJ0pmU8esbeAgoi7ELvd'; //Fill with your app Consumer Key
+$consumerSecret = '4sE2TpgJmYfAc0eA'; // Fill with your app Secret
+
+// callback url
+$callBackURL = 'https://fnfcom.com/daraja/validation_url.php';
+
 if ($request == "Daraja Payment") {
-
-
-
     $phoneNumber = $con->real_escape_string($data['phone']);
     $amount  = $con->real_escape_string($data['amount']);
     $paybill  = $con->real_escape_string($data['payBill']);
@@ -32,9 +36,6 @@ if ($request == "Daraja Payment") {
     $phone = "254" . $shortPhone;
 
 
-    //daraja
-    $consumerKey = '9xVvsUCX3scvjJ0pmU8esbeAgoi7ELvd'; //Fill with your app Consumer Key
-    $consumerSecret = '4sE2TpgJmYfAc0eA'; // Fill with your app Secret
 
     $headers = ['Content-Type:application/json; charset=utf8'];
 
@@ -52,10 +53,6 @@ if ($request == "Daraja Payment") {
 
     $access_token = $result->access_token;
 
-
-
-
-
     // safaricom might change this url. If so, get the valid one from daraja api docs
     $initiate_url = 'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
 
@@ -64,15 +61,13 @@ if ($request == "Daraja Payment") {
     $PartyA = "$phone";
     $AccountReference = $promptMessage;
     $Amount = "$amount";
-    $CallBackURL = 'https://fnfcom.com/daraja/validation_url.php';
+    $CallBackURL = $callBackURL;
     $passkey = 'b0d48bf7c866ab97f6c2d92433cd5d4dfa62b63c406b8b2b7c75df6cfd03fa33';
     $Password = base64_encode($BusinessShortCode . $passkey . $Timestamp);
-
 
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $initiate_url);
     curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json', 'Authorization:Bearer ' . $access_token)); //setting custom header
-
 
     $curl_post_data = array(
         //Fill in the request parameters with valid values
@@ -90,7 +85,6 @@ if ($request == "Daraja Payment") {
     );
 
     $data_string = json_encode($curl_post_data);
-
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl, CURLOPT_POST, true);
     curl_setopt($curl, CURLOPT_POSTFIELDS, $data_string);

@@ -32,7 +32,7 @@ CREATE TABLE `daraja-api-records` (
   `id` int(11) NOT NULL,
   `Phone` varchar(255) DEFAULT NULL,
   `Phone2` varchar(255) DEFAULT NULL,
-  `transaction` varchar(255) DEFAULT NULL,
+  `transaction_code` varchar(255) DEFAULT NULL,
   `info` varchar(255) DEFAULT NULL,
   `amount` varchar(18) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

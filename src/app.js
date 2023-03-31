@@ -10,7 +10,7 @@ async function submit() {
 
     const payBill = 4021575;
     const request = 'Daraja Payment';
-    const promptMessage = 'Payment for LANCOLA TECH';
+    const promptMessage = 'Payment Description';
 
     // make an axios request to the API for payment:
     const response = await axios.post(url, {
@@ -20,6 +20,9 @@ async function submit() {
         request,
         promptMessage,
     });
-    console.log(amount, phone)
-    console.log(response.data);
+    /*
+    RESPONSE FROM DARAJA API
+    console.log(response);
+    */
+
 }
