@@ -19,13 +19,12 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `fnfcom_fnfocm`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pesa`
+-- Table structure for table `daraja-api-records`
 --
 
 CREATE TABLE `daraja-api-records` (
@@ -39,9 +38,9 @@ CREATE TABLE `daraja-api-records` (
   `status` enum('active','inactive') NOT NULL DEFAULT 'inactive'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 --
--- Indexes for table `pesa`
+-- Indexes for table `daraja-api-records`
 --
-ALTER TABLE `pesa`
+ALTER TABLE `daraja-api-records`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -49,9 +48,9 @@ ALTER TABLE `pesa`
 --
 
 --
--- AUTO_INCREMENT for table `pesa`
+-- AUTO_INCREMENT for table `daraja-api-records`
 --
-ALTER TABLE `pesa`
+ALTER TABLE `daraja-api-records`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=306;
 COMMIT;
 
