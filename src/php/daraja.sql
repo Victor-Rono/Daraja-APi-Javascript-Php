@@ -51,7 +51,7 @@ ALTER TABLE `daraja-api-records`
 -- AUTO_INCREMENT for table `daraja-api-records`
 --
 ALTER TABLE `daraja-api-records`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=306;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

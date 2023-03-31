@@ -13,7 +13,7 @@ $consumerKey = '9xVvsUCX3scvjJ0pmU8esbeAgoi7ELvd'; //Fill with your app Consumer
 $consumerSecret = '4sE2TpgJmYfAc0eA'; // Fill with your app Secret
 
 // callback url
-$callBackURL = 'https://fnfcom.com/daraja/validation_url.php';
+$callBackURL = 'https://yoursite.com/daraja/validation_url.php';
 
 if ($request == "Daraja Payment") {
     $phoneNumber = $con->real_escape_string($data['phone']);
@@ -81,7 +81,7 @@ if ($request == "Daraja Payment") {
         'PhoneNumber' => $PartyA,
         'CallBackURL' => $CallBackURL,
         'AccountReference' => $AccountReference,
-        'TransactionDesc' => 'Registration Payment for FNFCOM'
+        'TransactionDesc' => 'Registration Payment for yoursite'
     );
 
     $data_string = json_encode($curl_post_data);

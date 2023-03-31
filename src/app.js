@@ -1,6 +1,6 @@
 async function submit() {
     // the url where the api file is located. MUST be https
-    const url = 'https://fnfcom.com/api/daraja-payment.php'; // paste the code in the /php/api.php file into the url's endpoint.
+    const url = 'https://yoursite.com/api/daraja-payment.php'; // paste the code in the /php/api.php file into the url's endpoint.
 
 
     // get the phone number and amount entered by the user
